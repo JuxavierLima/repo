@@ -1,0 +1,1 @@
+arquivo temp para copia dentro do docker.
