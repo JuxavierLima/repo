@@ -26,7 +26,7 @@ jobs:
          env:
            # Usaremos um "Secret" para proteger sua chave da API
            OMDB_API_KEY: ${{ secrets.OMDB_API_KEY }}
-         run: python extract/extract.py
+         run: python extract/extract_pipeline.py
 
        - name: Salvar CSVs como Artefatos
          uses: actions/upload-artifact@v4
