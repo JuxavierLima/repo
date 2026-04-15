@@ -20,13 +20,13 @@ jobs:
 
        - name: Instalar dependências
          run: |
-           pip install -r requirements.txt
+           pip install -r extract/requirements.txt
 
        - name: Executar Script de Extração
          env:
            # Usaremos um "Secret" para proteger sua chave da API
            OMDB_API_KEY: ${{ secrets.OMDB_API_KEY }}
-         run: python extract.py
+         run: python extract/extract.py
 
        - name: Salvar CSVs como Artefatos
          uses: actions/upload-artifact@v4
