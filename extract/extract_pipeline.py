@@ -112,4 +112,24 @@ if not df_movies.empty:
 
     print("✅ Dados carregados com sucesso no PostgreSQL!")
 
+    # CONSULTA VIEW 
+    from sqlalchemy import text
+    
+    with engine.connect() as conn:
+        conn.execute(text("""
+            CREATE OR REPLACE VIEW filmes_mais_bem_rankeados AS
+            SELECT
+                m.movie_id,
+                m.title,
+                m.year,
+                m.genre
+            FROM movies m
+            JOIN ratings r
+                ON m.movie_id = r.movie_id
+            WHERE r.rating = 5;
+        """))
+    
+    print("✅ View 'filmes_mais_bem_rankeados' criada com sucesso!")
+
+
  
