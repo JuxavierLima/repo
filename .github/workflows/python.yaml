@@ -1,4 +1,4 @@
-name: MovieFlix Data Extraction
+name: MovieFlix Data Extraction + PostgreSQL
 
 on:
 #  schedule:
@@ -9,6 +9,25 @@ jobs:
    build:
      runs-on: ubuntu-latest
 
+     # acrescentado
+     
+     # ALTERAÇÃO PRINCIPAL: PostgreSQL rodando em Docker
+     services:
+      postgres:
+        image: postgres:15                    
+        env:
+          POSTGRES_USER: movieflix            
+          POSTGRES_PASSWORD: movieflix        
+          POSTGRES_DB: movieflix_db            
+        ports:
+          - 5432:5432                         
+        options: >-                            
+          --health-cmd="pg_isready -U movieflix"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+# ate aqui
+     
      steps:
        - name: Checkout do código
          uses: actions/checkout@v4
@@ -20,13 +39,25 @@ jobs:
 
        - name: Instalar dependências
          run: |
-           pip install -r extract/requirements.txt
+             pip install -r extract/requirements.txt
+             pip install psycopg2-binary sqlalchemy  # ALTERAÇÃO: novas libs para conectar no PostgreSQL
 
        - name: Executar Script de Extração
          env:
            # Usaremos um "Secret" para proteger sua chave da API
            OMDB_API_KEY: ${{ secrets.OMDB_API_KEY }}
+         
+         # acrescentado
+
+           PG_HOST: localhost                   
+           PG_PORT: 5432                        
+           PG_USER: movieflix                  
+           PG_PASSWORD: movieflix              
+           PG_DATABASE: movieflix_db            
+         
+         # ate aqui
          run: python extract/extract_pipeline.py
+#  o script agora também carrega dados no Postgres
 
        - name: Salvar CSVs como Artefatos
          uses: actions/upload-artifact@v4
