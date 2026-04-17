@@ -57,7 +57,8 @@ jobs:
          
          # ate aqui
          run: python extract/extract_pipeline.py
-#  o script agora também carrega dados no Postgres
+         
+         #  o script agora também carrega dados no Postgres
 
        - name: Salvar CSVs como Artefatos
          uses: actions/upload-artifact@v4
