@@ -134,7 +134,7 @@ if not df_movies.empty:
         "SELECT * FROM filmes_mais_bem_rankeados ORDER BY title",
         engine
     )
-    print("\n📄 Filmes mais bem rankiados (5 estrelas):")
+    print("\n Filmes mais bem rankiados (5 estrelas):")
     print(df_page)
     
     df_page.to_csv("filmes_mais_bem_rankeados.csv", index=False)
