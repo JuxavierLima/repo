@@ -137,4 +137,5 @@ if not df_movies.empty:
     print("\n📄 Filmes mais bem rankiados (5 estrelas):")
     print(df_page)
     
-    df_page.to_csv("filmes_mais_bem_rankeados.csv", index=False)
+    df_page.to_csv("./filmes_mais_bem_rankeados.csv", index=False)
+    print("✅ CSV filmes_mais_bem_rankeados.csv gerado com sucesso!")
