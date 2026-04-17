@@ -128,17 +128,12 @@ if not df_movies.empty:
                 ON m.movie_id = r.movie_id
             WHERE r.rating = 5;
         """))
-    
+ 
     print("✅ View 'filmes_mais_bem_rankeados' criada com sucesso!")
-
-
     df_page = pd.read_sql(
         "SELECT * FROM filmes_mais_bem_rankeados ORDER BY title",
         engine
     )
-    
     print("\n📄 Filmes mais bem rankiados (5 estrelas):")
     print(df_page)
-    
     df_page.to_csv("filmes_mais_bem_rankeados.csv", index=False)
- 
