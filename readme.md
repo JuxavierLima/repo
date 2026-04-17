@@ -1,4 +1,5 @@
 README – Projeto MovieFlix
+
 Este projeto implementa um pipeline automatizado de extração, carga e consulta de dados de filmes utilizando Python, PostgreSQL, Docker e GitHub Actions.
 O objetivo é extrair dados de filmes da API OMDb, gerar dados fictícios de usuários e avaliações, armazenar tudo em um banco PostgreSQL executado via Docker no GitHub Actions e gerar um CSV final com os filmes que receberam avaliação máxima (5 estrelas).
 PASSO A PASSO DO FUNCIONAMENTO
