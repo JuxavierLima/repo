@@ -3,6 +3,10 @@ import requests
 import pandas as pd
 import random
 
+# NOVO: bibliotecas para PostgreSQL
+from sqlalchemy import create_engine
+
+
 # Coloque sua chave API no final para teste
 # http://www.omdbapi.com/?t=Inception&apikey=
 
@@ -86,5 +90,26 @@ if not df_movies.empty:
     df_movies.to_csv('movies.csv', index=False)
     df_users.to_csv('users.csv', index=False)
     df_ratings.to_csv('ratings.csv', index=False)
-    print(f"\n🚀 Finalizado! {len(df_movies)} filmes filtrados por gênero salvos.")
+    # alterei a msgs
+    print(f"\n🚀 CSVS gerados com sucesso! {len(df_movies)} filmes filtrados por gênero salvos.")
+
+
+    # NOVA ETAPA: CONEXÃO COM O POSTGRES
+    PG_HOST = os.getenv("PG_HOST")
+    PG_PORT = os.getenv("PG_PORT")
+    PG_USER = os.getenv("PG_USER")
+    PG_PASSWORD = os.getenv("PG_PASSWORD")
+    PG_DATABASE = os.getenv("PG_DATABASE")
+
+    engine = create_engine(
+        f"postgresql://{PG_USER}:{PG_PASSWORD}@{PG_HOST}:{PG_PORT}/{PG_DATABASE}"
+    )
+
+    # CARGA DOS DADOS NO BANCO
+    df_movies.to_sql("movies", engine, if_exists="replace", index=False)
+    df_users.to_sql("users", engine, if_exists="replace", index=False)
+    df_ratings.to_sql("ratings", engine, if_exists="replace", index=False)
+
+    print("✅ Dados carregados com sucesso no PostgreSQL!")
+
  
